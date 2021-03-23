@@ -1,0 +1,63 @@
+PUT _template/all
+{
+  "index_patterns": "*",
+  "settings": {
+    "number_of_shards": 1,
+    "number_of_replicas": 1
+  },
+  "mappings": {
+    "_doc": {
+      "properties": {
+        "date": {
+          "type": "date"
+        },
+        "fullDate": {
+          "type": "date"
+        },
+        "nextFullDate":{
+          "type":"date"
+        },
+        "phoneInfo": {
+          "type": "nested",
+          "properties": {
+            "maxMessageDate": {
+              "type": "date"
+            },
+            "crawlDate": {
+              "type": "date"
+            },
+            "nextCrawlDate": {
+              "type": "date"
+            }
+          }
+        }
+      },
+      "numeric_detection": true
+    }
+  }
+}
+
+PUT /_cluster/settings
+{
+  "transient": {
+    "script.max_compilations_rate": "10000/1m"
+  }
+}
+
+DELETE *
+
+PUT channel
+PUT group
+PUT msg
+PUT hashcode
+PUT user
+PUT username
+PUT gap
+
+GET channel/_search
+GET group/_search
+GET msg/_search
+GET hashcode/_search
+GET user/_search
+GET username/_search
+GET gap/_search
